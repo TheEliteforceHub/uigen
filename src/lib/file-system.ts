@@ -20,16 +20,13 @@ export class VirtualFileSystem {
     this.files.set("/", this.root);
   }
 
-  private normalizePath(path: string): string {
-    // Ensure path starts with /
+  normalizePath(path: string): string {
     if (!path.startsWith("/")) {
       path = "/" + path;
     }
-    // Remove trailing slash except for root
     if (path !== "/" && path.endsWith("/")) {
       path = path.slice(0, -1);
     }
-    // Normalize multiple slashes
     path = path.replace(/\/+/g, "/");
     return path;
   }
