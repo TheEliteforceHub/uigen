@@ -31,11 +31,11 @@ jobs:
           fetch-depth: 1
 
       - name: Project Setup
-        env:
-          NODE_TLS_REJECT_UNAUTHORIZED: 0
         run: |
-          npm run setup
-          npm run dev > logs.txt 2>&1 &
+          npm install
+          npx prisma generate
+          npx prisma migrate deploy
+          npm run dev:daemon
           npx wait-on http://localhost:3000 --timeout 60000
 
       - name: Run Claude Code
